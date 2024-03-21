@@ -40,4 +40,5 @@ public class QuizQuestion {
     // Additional fields for specific question types (e.g., essay)
     @Lob
     private String essayAnswerExample; // Example answer for essay questions
+
 }

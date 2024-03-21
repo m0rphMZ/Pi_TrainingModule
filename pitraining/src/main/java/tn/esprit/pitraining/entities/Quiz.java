@@ -1,5 +1,6 @@
 package tn.esprit.pitraining.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -33,11 +34,14 @@ public class Quiz {
     @Column(nullable = false)
     private LocalDateTime createdDate = LocalDateTime.now(); // Timestamp of creation
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<QuizQuestion> questions;
+
 
     @ManyToOne(fetch = FetchType.LAZY) // Optional Many-to-One relationship with TrainingContent
     private TrainingContent trainingContent; // User who created the quiz (optional)
+
+
 }
 
 enum QuizType {
@@ -47,3 +51,5 @@ enum QuizType {
     MATCHING,
     ESSAY
 }
+
+
