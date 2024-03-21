@@ -26,7 +26,7 @@ public class TrainingContent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long training_content_id;
 
     @Enumerated(EnumType.STRING)
     private ContentType type;

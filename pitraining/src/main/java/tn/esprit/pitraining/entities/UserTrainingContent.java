@@ -16,7 +16,7 @@ public class UserTrainingContent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long user_training_content_id;
 
     //@ManyToOne
     //@JoinColumn(name = "user_id", nullable = false) // Not nullable foreign key for User
