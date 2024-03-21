@@ -1,29 +1,23 @@
 package tn.esprit.pitraining.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+@Entity
 @Data // Lombok annotation for getters, setters, equals, and hashCode
 @AllArgsConstructor // Lombok annotation for full constructor
 @NoArgsConstructor // Lombok annotation for empty constructor
-@Entity
 public class Quiz {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long quiz_id;
+    private Long id; // Using a generic "id" for the primary key
 
     @Column(nullable = false)
     private String title;
@@ -33,10 +27,23 @@ public class Quiz {
 
     private Integer passingScore;
 
-    @ManyToOne // Optional Many-to-One relationship with TrainingContent
-    @JoinColumn(name = "training_content_id", nullable = true) // Nullable foreign key for optional association
-    private TrainingContent trainingContent;
+    @Enumerated(EnumType.STRING) // Store the actual enum value (e.g., "MULTIPLE_CHOICE")
+    private QuizType type; // Type of quiz (e.g., MULTIPLE_CHOICE, TRUE_FALSE)
 
-    @OneToMany(mappedBy = "quiz") // Mapped by field in QuizQuestion
+    @Column(nullable = false)
+    private LocalDateTime createdDate = LocalDateTime.now(); // Timestamp of creation
+
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<QuizQuestion> questions;
+
+    @ManyToOne(fetch = FetchType.LAZY) // Optional Many-to-One relationship with TrainingContent
+    private TrainingContent trainingContent; // User who created the quiz (optional)
+}
+
+enum QuizType {
+    MULTIPLE_CHOICE,
+    TRUE_FALSE,
+    FILL_IN_THE_BLANK,
+    MATCHING,
+    ESSAY
 }

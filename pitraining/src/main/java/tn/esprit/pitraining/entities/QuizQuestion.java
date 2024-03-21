@@ -1,37 +1,43 @@
 package tn.esprit.pitraining.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data // Lombok annotation for getters, setters, equals, and hashCode
 @AllArgsConstructor // Lombok annotation for full constructor
 @NoArgsConstructor // Lombok annotation for empty constructor
-@Entity
 public class QuizQuestion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long quiz_question_id;
+    private Long id;
 
-    @Column(nullable = false)
-    private String questionText;
+    private String text; // Question text
 
-    @Enumerated(EnumType.STRING)
-    private QuestionType type; // Type of answer format
+    @Lob // Large Object for potentially large amounts of text or images
+    private String explanation; // Optional explanation for the answer
 
-    @Column(columnDefinition = "TEXT")
-    private String answerOptions; // String containing answer options (format depends on type)
-
-    @ManyToOne
-    @JoinColumn(name = "quiz_id", nullable = false) // Not nullable foreign key for Quiz
+    @ManyToOne(fetch = FetchType.LAZY) // Many-to-One relationship with Quiz (lazy fetching)
     private Quiz quiz;
 
-    public enum QuestionType {
-        SINGLE_CHOICE,
-        MULTIPLE_CHOICE,
-        TRUE_FALSE
-    }
+    // Added fields for different question types
+    private String answerChoiceA; // For multiple choice or matching
+    private String answerChoiceB; // For multiple choice or matching
+    private String answerChoiceC; // For multiple choice or matching
+    private String answerChoiceD; // For multiple choice
+    private String correctAnswer; // For various question types
+
+    // Additional fields for specific question types (e.g., essay)
+    @Lob
+    private String essayAnswerExample; // Example answer for essay questions
 }
