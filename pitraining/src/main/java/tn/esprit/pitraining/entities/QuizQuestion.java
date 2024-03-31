@@ -1,5 +1,6 @@
 package tn.esprit.pitraining.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +29,7 @@ public class QuizQuestion {
     private String explanation; // Optional explanation for the answer
 
     @ManyToOne(fetch = FetchType.LAZY) // Many-to-One relationship with Quiz (lazy fetching)
+    @JsonIgnore
     private Quiz quiz;
 
     // Added fields for different question types

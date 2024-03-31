@@ -1,0 +1,11 @@
+<h2>Quizzes</h2>
+<div *ngIf="quizzes; else loading">
+  <ul>
+    <li *ngFor="let quiz of quizzes">
+      <a routerLink="/quizzes/{{quiz.id}}">{{quiz.title}}</a>
+    </li>
+  </ul>
+</div>
+<ng-template #loading>
+  Loading quizzes...
+</ng-template>

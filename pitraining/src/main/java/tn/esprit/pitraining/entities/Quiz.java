@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Data // Lombok annotation for getters, setters, equals, and hashCode
@@ -39,6 +40,7 @@ public class Quiz {
 
 
     @ManyToOne(fetch = FetchType.LAZY) // Optional Many-to-One relationship with TrainingContent
+    @JsonIgnore
     private TrainingContent trainingContent; // User who created the quiz (optional)
 
 
