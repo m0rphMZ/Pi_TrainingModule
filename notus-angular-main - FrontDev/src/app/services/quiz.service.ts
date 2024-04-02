@@ -12,4 +12,14 @@ export class QuizService {
   getQuizzes(): Observable<Quiz[]> {
     return this.http.get<Quiz[]>(`${this.backendUrl}/quizzes`);
   }
+
+  updateQuiz(quizId: number, updatedQuiz: Quiz): Observable<Quiz> {
+    return this.http.put<Quiz>(`${this.backendUrl}/quizzes/${quizId}`, updatedQuiz);
+  }
+  
+
+  deleteQuiz(quizId: number): Observable<void> {
+    return this.http.delete<void>(`${this.backendUrl}/quizzes/${quizId}`);
+  }  
+  
 }

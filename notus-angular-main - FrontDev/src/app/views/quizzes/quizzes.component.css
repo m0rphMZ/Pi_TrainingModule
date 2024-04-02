@@ -1,0 +1,23 @@
+.fancy-quiz-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: sans-serif; 
+  }
+  
+  .fancy-quiz-table th,
+  .fancy-quiz-table td {
+    border: 1px solid #ddd;
+    padding: 10px; 
+    text-align: left; 
+  }
+  
+  .fancy-quiz-table th {
+    background-color: #f0f0f0; /* Example light gray header */
+  }
+  
+  .fancy-quiz-table tr:nth-child(even) { 
+    background-color: #fafafa; /* Example alternating row color */
+  }
+  
+  /* ... Add more styles for buttons, images, etc if needed */
+  

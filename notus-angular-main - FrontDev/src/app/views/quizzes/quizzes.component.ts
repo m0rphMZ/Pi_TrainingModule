@@ -17,4 +17,47 @@ export class QuizzesComponent implements OnInit {
       this.quizzes = quizzes;
     });
   }
+
+
+  updateQuizProperty(quiz: Quiz, property: string) {
+    quiz[`editable${property.charAt(0).toUpperCase() + property.slice(1)}`] = false; // Turn off edit mode
+
+    // Make a copy to avoid change detection issues (optional)
+    const updatedQuiz = { ...quiz };
+
+    this.quizService.updateQuiz(quiz.id, updatedQuiz)
+      .subscribe({
+        next: (savedQuiz) => {
+          // Update successful 
+        },
+        error: (err) => {
+          console.error('Error updating quiz:', err);
+          // Handle the error (e.g., revert the changes).
+        }
+      });
+  }
+
+
+  confirmDeleteQuiz(quizId: number) {
+    if (confirm('Are you sure you want to delete this quiz?')) {
+      this.deleteQuiz(quizId);
+    }
+  }
+
+  deleteQuiz(quizId: number) {
+    this.quizService.deleteQuiz(quizId).subscribe({
+      next: () => {
+        // Successfully deleted: Update the UI immediately
+        this.quizzes = this.quizzes.filter(quiz => quiz.id !== quizId); 
+      },
+      error: (err) => {
+        console.error('Error deleting quiz:', err);
+        // Handle the error (e.g., display an error message to the user)
+      }
+    });
+  }
+
+
+
+
 }
