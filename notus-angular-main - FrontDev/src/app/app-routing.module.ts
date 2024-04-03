@@ -23,6 +23,7 @@ import { ProfileComponent } from "./views/profile/profile.component";
 // Quiz Components
 import { QuizzesComponent } from "./views/quizzes/quizzes.component"; 
 import { QuizDetailComponent } from "./views/quiz-detail/quiz-detail.component"; 
+import { AddQuizComponent } from "./views/add-quiz/add-quiz.component"; 
 
 const routes: Routes = [
   // admin views
@@ -55,7 +56,7 @@ const routes: Routes = [
   // Quiz Routes
   { path: 'quizzes', component: QuizzesComponent },
   { path: 'quizzes/:id', component: QuizDetailComponent },
-
+  { path: 'addquiz', component: AddQuizComponent },
   { path: "**", redirectTo: "", pathMatch: "full" },
 ];
 

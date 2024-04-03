@@ -21,5 +21,9 @@ export class QuizService {
   deleteQuiz(quizId: number): Observable<void> {
     return this.http.delete<void>(`${this.backendUrl}/quizzes/${quizId}`);
   }  
+
+  createQuiz(newQuiz: Quiz): Observable<Quiz> {
+    return this.http.post<Quiz>(`${this.backendUrl}/quizzes`, newQuiz);
+  } 
   
 }

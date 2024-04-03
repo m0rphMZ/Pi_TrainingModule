@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from '@angular/common/http'; 
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -52,6 +53,7 @@ import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { UserDropdownComponent } from "./components/dropdowns/user-dropdown/user-dropdown.component";
 import { QuizzesComponent } from './views/quizzes/quizzes.component';
 import { QuizDetailComponent } from './views/quiz-detail/quiz-detail.component';
+import { AddQuizComponent } from './views/add-quiz/add-quiz.component';
 
 @NgModule({
   declarations: [
@@ -91,8 +93,9 @@ import { QuizDetailComponent } from './views/quiz-detail/quiz-detail.component';
     ProfileComponent,
     QuizzesComponent,
     QuizDetailComponent,
+    AddQuizComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
