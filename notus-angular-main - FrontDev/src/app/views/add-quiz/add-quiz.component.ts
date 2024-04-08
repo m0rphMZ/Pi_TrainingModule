@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { QuizService } from '../../services/quiz.service'; 
 import { Quiz } from '../quiz/quiz.model';
+import { QuizQuestion } from '../quiz/quiz-question.model';
 import { Router } from '@angular/router'; 
 
 @Component({
@@ -12,33 +13,74 @@ import { Router } from '@angular/router';
 export class AddQuizComponent implements OnInit {
   newQuizForm: FormGroup; 
 
+  errorMessage: string | null = null;
+
   constructor(private formBuilder: FormBuilder, 
               private quizService: QuizService,
               private router: Router) {}  
 
+              
+
   ngOnInit() {
     this.buildForm(); 
   }
+
+  private displayErrorMessage(message: string) {
+    this.errorMessage = message;
+}
 
   buildForm() { 
     this.newQuizForm = this.formBuilder.group({
       title: ['', Validators.required], 
       description: [''], 
       passingScore: [70, Validators.min(0)],
-      type: ['', Validators.required] // Add validation if needed
+      type: ['', Validators.required],
+      questions: this.formBuilder.array([]) 
     });
   }
 
-  onCreateQuizSubmit() {
-    const newQuizData = this.newQuizForm.value; 
-    this.quizService.createQuiz(newQuizData)
-      .subscribe(savedQuiz => {
-        // Success: Navigate to the quizzes list
-        this.router.navigate(['/quizzes']);
-      }, 
-      error => {
-        // Handle error (display a message, etc.)
-        console.error("Error creating quiz:", error);
-      });
+  get questionsFormArray(): FormArray {
+    return this.newQuizForm.get('questions') as FormArray;
   }
+
+  addQuestion() {
+    const questionGroup = this.formBuilder.group({
+      text: ['', Validators.required],
+      answerChoiceA: ['', Validators.required], 
+      answerChoiceB: ['', Validators.required], 
+      answerChoiceC: ['', Validators.required], 
+      answerChoiceD: ['', Validators.required], 
+      correctAnswer: ['', Validators.required],
+      explanation: [''], 
+      essayAnswerExample: ['']
+    });
+    this.questionsFormArray.push(questionGroup);
+  }
+
+  removeQuestion(index: number) {
+    this.questionsFormArray.removeAt(index);
+  }
+
+  onCreateQuizSubmit() {
+    if (this.newQuizForm.invalid) { 
+      this.displayErrorMessage('Please fill in all required fields.');
+      return; 
+    }
+ 
+    const newQuizData = this.newQuizForm.value; 
+    if (newQuizData.questions.length < 2) {
+      this.displayErrorMessage('Please add at least two questions.');
+      return; 
+    }
+ 
+    // Your existing code to send data to the backend remains unchanged:
+    this.quizService.createQuiz(newQuizData)
+        .subscribe(savedQuiz => {
+            this.router.navigate(['/quizzes']);
+        }, 
+        error => {
+            console.error("Console Error creating quiz:", error);
+        });
+ }
+ 
 }

@@ -11,7 +11,7 @@ public interface QuizQuestionService {
 
     Optional<QuizQuestion> getQuestionById(Long quizId, Long id);
 
-    QuizQuestion saveQuestion(QuizQuestion question);
+    QuizQuestion saveQuestion(Long quizId, QuizQuestion question);
 
     QuizQuestion updateQuestion(Long quizId, Long id, QuizQuestion updatedQuestion);
 

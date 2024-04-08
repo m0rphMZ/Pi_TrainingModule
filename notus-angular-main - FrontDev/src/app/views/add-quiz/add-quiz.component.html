@@ -87,6 +87,61 @@
         </div>
       </div>
 
+      <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-500"
+      *ngIf="errorMessage">
+       <span class="inline-block align-middle mr-8">
+         <b class="capitalize">{{ errorMessage }}</b>
+       </span>
+       <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none">
+         <span></span>
+       </button>
+     </div>
+
+
+
+
+      <div class="flex flex-wrap" formArrayName="questions"> 
+        <div class="w-full lg:w-12/12 px-4" *ngFor="let questionControl of questionsFormArray.controls; let i = index" 
+             [formGroupName]="i" class="w-full lg:w-6/12 px-4"> 
+             <div class="relative w-full mb-3">
+
+             <hr class="mt-6 border-b-1 border-blueGray-300" />
+
+            <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase" for="questionText{{i}}">
+              Question {{i + 1}}
+              <button type="button" (click)="removeQuestion(i)" 
+              class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+          Remove
+      </button>
+            </h6>
+      
+          <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="questionText{{i}}">Question Text</label>
+          <input type="text" id="questionText{{i}}" formControlName="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+          
+
+          <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="answerChoiceA{{i}}">Answer Choice A:</label>
+          <input type="text" id="answerChoiceA{{i}}" formControlName="answerChoiceA" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+      
+          <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="answerChoiceB{{i}}">Answer Choice B:</label>
+          <input type="text" id="answerChoiceB{{i}}" formControlName="answerChoiceB" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+      
+          <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="answerChoiceC{{i}}">Answer Choice C:</label>
+          <input type="text" id="answerChoiceC{{i}}" formControlName="answerChoiceC" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+      
+          <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="answerChoiceD{{i}}">Answer Choice D:</label>
+          <input type="text" id="answerChoiceD{{i}}" formControlName="answerChoiceD" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+      
+          <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="correctAnswer{{i}}">Correct Answer:</label>
+          <input type="text" id="correctAnswer{{i}}" formControlName="correctAnswer" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+      
+          <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="explanation{{i}}">Explanation (Optional):</label>
+          <textarea id="explanation{{i}}" formControlName="explanation" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          rows="4">></textarea>
+        </div>
+      </div>
+    </div>
+      
+
 
       <button
   class="bg-teal-500 text-white active:bg-teal-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -94,6 +149,11 @@
 >
   Submit
 </button>
+
+<button class="bg-teal-500 text-white active:bg-teal-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+type="button" (click)="addQuestion()"> + Add Question </button> 
+
+
 
     </form>
   </div>

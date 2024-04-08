@@ -13,6 +13,10 @@ export class QuizService {
     return this.http.get<Quiz[]>(`${this.backendUrl}/quizzes`);
   }
 
+  getQuizById(id: number): Observable<Quiz> { // Add this method
+    return this.http.get<Quiz>(`${this.backendUrl}/quizzes/${id}`);
+  }
+
   updateQuiz(quizId: number, updatedQuiz: Quiz): Observable<Quiz> {
     return this.http.put<Quiz>(`${this.backendUrl}/quizzes/${quizId}`, updatedQuiz);
   }

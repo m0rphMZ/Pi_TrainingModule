@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../services/quiz.service'; 
 import { Quiz } from '../quiz/quiz.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quizzes',
@@ -10,13 +11,19 @@ import { Quiz } from '../quiz/quiz.model';
 export class QuizzesComponent implements OnInit {
   quizzes: Quiz[] = []; // Declare a quizzes array to store fetched data
 
-  constructor(private quizService: QuizService) {}
+  constructor(private quizService: QuizService, private router: Router) {} // Inject Router
+
 
   ngOnInit(): void {
     this.quizService.getQuizzes().subscribe(quizzes => {
       this.quizzes = quizzes;
     });
   }
+
+  viewQuiz(quizId: number) {
+    this.router.navigate(['/quizzes', quizId]); 
+  }
+  
 
 
   updateQuizProperty(quiz: Quiz, property: string) {

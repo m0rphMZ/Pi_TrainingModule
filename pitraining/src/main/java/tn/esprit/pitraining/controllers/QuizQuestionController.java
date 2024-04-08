@@ -35,7 +35,7 @@ public class QuizQuestionController {
     // Save a new question for a specific quiz
     @PostMapping
     public QuizQuestion createQuestion(@PathVariable Long quizId, @RequestBody QuizQuestion question) {
-        return quizQuestionService.saveQuestion(question); // Delegate to service method
+        return quizQuestionService.saveQuestion(quizId, question); // Delegate to service method
     }
 
     // Update a quiz question (replace entire question object)
