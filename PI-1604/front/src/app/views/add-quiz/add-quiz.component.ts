@@ -4,6 +4,8 @@ import { QuizService } from '../../services/quiz.service';
 import { Quiz } from '../quiz/quiz.model';
 import { QuizQuestion } from '../quiz/quiz-question.model';
 import { Router } from '@angular/router'; 
+import { TrainingContentService } from '../../services/training-content.service';
+import { TrainingContent } from '../quiz/training-content.model';
 
 @Component({
   selector: 'app-add-quiz',
@@ -15,14 +17,23 @@ export class AddQuizComponent implements OnInit {
 
   errorMessage: string | null = null;
 
+  trainingContents: TrainingContent[] = [];
+
   constructor(private formBuilder: FormBuilder, 
               private quizService: QuizService,
+              private trainingContentService: TrainingContentService ,
               private router: Router) {}  
 
               
 
   ngOnInit() {
     this.buildForm(); 
+    this.fetchTrainingContents();
+  }
+
+  fetchTrainingContents() {
+    this.trainingContentService.getTrainingContents()
+      .subscribe(contents => this.trainingContents = contents);
   }
 
   private displayErrorMessage(message: string) {
@@ -35,7 +46,8 @@ export class AddQuizComponent implements OnInit {
       description: [''], 
       passingScore: [70, Validators.min(0)],
       type: ['', Validators.required],
-      questions: this.formBuilder.array([]) 
+      questions: this.formBuilder.array([]),
+      trainingContentId: ['', Validators.required]
     });
   }
 
@@ -74,6 +86,7 @@ export class AddQuizComponent implements OnInit {
     }
  
     // Your existing code to send data to the backend remains unchanged:
+    console.log(newQuizData)
     this.quizService.createQuiz(newQuizData)
         .subscribe(savedQuiz => {
             this.router.navigate(['/quizzes']);

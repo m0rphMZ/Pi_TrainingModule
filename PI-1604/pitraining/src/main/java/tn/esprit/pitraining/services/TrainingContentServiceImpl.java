@@ -18,6 +18,12 @@ public class TrainingContentServiceImpl implements TrainingContentService {
         this.trainingContentRepository = trainingContentRepository;
     }
 
+
+    @Override
+    public Optional<TrainingContent> findById(Long id) {
+        return trainingContentRepository.findById(id);
+    }
+
     @Override
     public List<TrainingContent> getAllTrainingContent() {
         return trainingContentRepository.findAll();

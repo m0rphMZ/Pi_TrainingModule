@@ -38,6 +38,9 @@ public class Quiz {
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<QuizQuestion> questions;
 
+    @Transient // This field won't be persisted in the database
+    private Long TrainingContentId;
+
 
     @ManyToOne(fetch = FetchType.LAZY) // Optional Many-to-One relationship with TrainingContent
     @JsonIgnore

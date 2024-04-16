@@ -1,10 +1,14 @@
 package tn.esprit.pitraining.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import tn.esprit.pitraining.entities.Quiz;
 import tn.esprit.pitraining.entities.QuizQuestion;
+import tn.esprit.pitraining.entities.TrainingContent;
 import tn.esprit.pitraining.repositories.QuizRepository;
+import tn.esprit.pitraining.services.TrainingContentService;
 
 
 import java.util.List;
@@ -15,9 +19,12 @@ public class QuizServiceImpl implements QuizService {
 
     private final QuizRepository quizRepository;
 
+    private final TrainingContentService trainingContentService;
+
     @Autowired
-    public QuizServiceImpl(QuizRepository quizRepository) {
+    public QuizServiceImpl(QuizRepository quizRepository, TrainingContentService trainingContentService) {
         this.quizRepository = quizRepository;
+        this.trainingContentService = trainingContentService;
     }
 
     @Override
@@ -37,20 +44,54 @@ public class QuizServiceImpl implements QuizService {
                 question.setQuiz(quiz);
             }
         }
-        return quizRepository.save(quiz);
+
+        // Fetch the TrainingContent (assuming you have the trainingContentService)
+        Optional<TrainingContent> optionalTrainingContent = trainingContentService.findById(quiz.getTrainingContentId());
+
+        // Check if TrainingContent exists and set the association
+        if (optionalTrainingContent.isPresent()) {
+            TrainingContent trainingContent = optionalTrainingContent.get();
+            quiz.setTrainingContent(trainingContent); // Set the association
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Training Content not found");
+        }
+
+        return quizRepository.save(quiz); // Save with the established association
     }
 
 
-    @Override
+
     public Quiz updateQuiz(Long id, Quiz updatedQuiz) {
         Optional<Quiz> existingQuiz = quizRepository.findById(id);
         if (existingQuiz.isPresent()) {
-            updatedQuiz.setId(id); // Set the ID of the updated quiz
-            return quizRepository.save(updatedQuiz);
+            Quiz quizToUpdate = existingQuiz.get();
+
+            quizToUpdate.setTitle(updatedQuiz.getTitle());
+            quizToUpdate.setDescription(updatedQuiz.getDescription());
+            quizToUpdate.setType(updatedQuiz.getType());
+            quizToUpdate.setPassingScore(updatedQuiz.getPassingScore());
+
+            // Explicitly handle the trainingContent association
+            if (updatedQuiz.getTrainingContentId() != null) {
+                Optional<TrainingContent> optionalTrainingContent = trainingContentService.findById(updatedQuiz.getTrainingContentId());
+                if (optionalTrainingContent.isPresent()) {
+                    quizToUpdate.setTrainingContent(optionalTrainingContent.get());
+                } else {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Training Content not found");
+                }
+            } else {
+                // If trainingContentId is null, you might want to:
+                // 1. Keep the existing association
+                // 2. Remove the association by setting quizToUpdate.setTrainingContent(null)
+            }
+
+            return quizRepository.save(quizToUpdate);
         } else {
             throw new ResourceNotFoundException("Quiz not found with ID: " + id);
         }
     }
+
+
 
     public class ResourceNotFoundException extends RuntimeException {
 

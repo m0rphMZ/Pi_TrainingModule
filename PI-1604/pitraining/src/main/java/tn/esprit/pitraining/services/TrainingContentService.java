@@ -9,6 +9,8 @@ public interface TrainingContentService {
 
     List<TrainingContent> getAllTrainingContent();
 
+    Optional<TrainingContent> findById(Long id);
+
     Optional<TrainingContent> getTrainingContentById(Long id);
 
     TrainingContent createTrainingContent(TrainingContent trainingContent);
