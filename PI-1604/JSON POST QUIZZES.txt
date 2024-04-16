@@ -1,0 +1,67 @@
+JSON POST QUIZZES
+
+{
+  "title": "CSERS Terminology",
+  "description": "Complete the sentences with the appropriate CSERS-related terms.",
+  "passingScore": 60,
+  "type": "FILL_IN_THE_BLANK",
+  "questions": [
+    {
+      "text": "A _________  is a pre-written message that can be quickly sent out during an emergency.",
+      "correctAnswer": "template"
+    },
+    {
+      "text": "The ________ dashboard provides a real-time overview of an active situation.",
+      "correctAnswer": "incident"
+    }
+  ]
+}
+
+
+{
+  "title": "CSERS True or False",
+  "description": "Determine if the statements about CSERS procedures are true or false.",
+  "passingScore": 80,
+  "type": "TRUE_FALSE",
+  "questions": [
+    {
+      "text": "CSERS can only be accessed by campus security personnel.",
+      "correctAnswer": false
+    },
+    {
+      "text": "Students should use CSERS to report suspicious activity.",
+      "correctAnswer": true
+    }
+  ]
+}
+
+{
+  "title": "CSERS Security Basics",
+  "description": "Test your understanding of core CSERS security concepts.",
+  "passingScore": 75,
+  "type": "MULTIPLE_CHOICE",
+  "questions": [
+    {
+      "text": "Which of the following is a primary function of the CSERS platform?",
+      "options": [
+          "Managing student grades", 
+          "Facilitating online course discussions", 
+          "Centralizing emergency notifications", 
+          "Tracking campus attendance"
+        ],
+      "correctAnswer": "Centralizing emergency notifications"
+    },
+    {
+      "text": "What type of information can be shared through CSERS during an active incident?",
+      "options": [
+          "Location of the incident", 
+          "Suspect descriptions", 
+          "Evacuation routes", 
+          "All of the above"
+        ],
+      "correctAnswer": "All of the above"
+    }
+  ]
+}
+
+
