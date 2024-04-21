@@ -1,0 +1,63 @@
+<app-auth-navbar></app-auth-navbar>
+<main class="profile-page">
+    <!-- Display background section only for the first quiz -->
+    <section class="relative block h-500-px">
+      <div class="absolute top-0 w-full h-full bg-center bg-cover" style="background-image: url('assets/img/quizbg.jpg')"></div>
+      <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
+      <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style="transform: translateZ(0)">
+        <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+          <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </section>
+
+
+<!-- Quiz information section -->
+<section class="relative py-16 bg-blueGray-200" style="background-color: #f5f5f5;">
+    <div class="container mx-auto px-4">
+        <div *ngIf="currentQuestion">
+            <h2>{{ currentQuestion.text }}</h2>
+            <!-- Render question based on quiz type -->
+            <ng-container *ngIf="currentQuiz && currentQuiz.type">
+                <ng-container *ngIf="currentQuiz.type === 'MULTIPLE_CHOICE'">
+                    <ul>
+                        <li *ngFor="let option of [currentQuestion.answerChoiceA, currentQuestion.answerChoiceB, currentQuestion.answerChoiceC, currentQuestion.answerChoiceD]">
+                            <label>
+                                <input type="radio" [value]="option" [(ngModel)]="selectedAnswer">
+                                {{ option }}
+                            </label>
+                        </li>
+                    </ul>
+                </ng-container>
+                <ng-container *ngIf="currentQuiz.type === 'TRUE_FALSE'">
+                    <label>
+                        <input type="radio" value="A" [(ngModel)]="selectedAnswer"> True
+                    </label>
+                    <label>
+                        <input type="radio" value="B" [(ngModel)]="selectedAnswer"> False
+                    </label>
+                </ng-container>
+                <ng-container *ngIf="currentQuiz.type === 'FILL_IN_THE_BLANK'">
+                    <input type="text" [(ngModel)]="selectedAnswer">
+                </ng-container>
+                <ng-container *ngIf="currentQuiz.type === 'MATCHING'">
+                    <button (click)="selectAnswer('A')">{{ currentQuestion.answerChoiceA }}</button>
+                    <button (click)="selectAnswer('B')">{{ currentQuestion.answerChoiceB }}</button>
+                </ng-container>
+                <ng-container *ngIf="currentQuiz.type === 'ESSAY'">
+                    <textarea [(ngModel)]="selectedAnswer"></textarea>
+                    <div *ngIf="currentQuestion.essayAnswerExample" class="text-gray-500">Essay Answer Exemple : {{ currentQuestion.essayAnswerExample }}</div>
+                </ng-container>
+            </ng-container>
+            
+            <div *ngIf="showCorrectAnswerMessage" class="text-red-500">Incorrect answer. The correct answer is: {{ currentQuestion.correctAnswer }}</div>
+            <button (click)="onNextQuestion()">Next</button>
+        </div>
+    </div>
+</section>
+
+
+
+</main>
+
+<app-footer></app-footer>
