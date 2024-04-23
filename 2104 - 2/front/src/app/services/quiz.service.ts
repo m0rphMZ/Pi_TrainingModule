@@ -29,5 +29,10 @@ export class QuizService {
   createQuiz(newQuiz: Quiz): Observable<Quiz> {
     return this.http.post<Quiz>(`${this.backendUrl}/quizzes`, newQuiz);
   } 
+
+
+    getQuizzesByTrainingContentId(trainingContentId: number): Observable<Quiz[]> {
+      return this.http.get<Quiz[]>(`${this.backendUrl}/quizzes/ByTrainingContent/${trainingContentId}`);
+    }
   
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainingContentService } from '../../services/training-content.service';
 import { TrainingContent } from '../quiz/training-content.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-training-content-list',
@@ -10,7 +11,7 @@ import { TrainingContent } from '../quiz/training-content.model';
 export class TrainingContentListComponent implements OnInit {
   trainingContents: TrainingContent[] = []; // To store fetched data
 
-  constructor(private trainingContentService: TrainingContentService) { }
+  constructor(private trainingContentService: TrainingContentService, private router: Router) { }
 
   ngOnInit(): void {
     this.fetchTrainingContents(); // Fetch on component initialization
@@ -19,5 +20,9 @@ export class TrainingContentListComponent implements OnInit {
   fetchTrainingContents() {
     this.trainingContentService.getTrainingContents()
       .subscribe(contents => this.trainingContents = contents);
+  }
+
+  viewQuizzes(trainingContentId: number): void {
+    this.router.navigate(['/quizzes'], { queryParams: { trainingContentId } });
   }
 }

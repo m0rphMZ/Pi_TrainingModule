@@ -11,6 +11,8 @@ public interface QuizService {
 
     Optional<Quiz> getQuizById(Long id);
 
+    List<Quiz> getQuizzesByTrainingContentId(Long trainingContentId); // New method
+
     Quiz saveQuiz(Quiz quiz);
 
     Quiz updateQuiz(Long id, Quiz updatedQuiz);

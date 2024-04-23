@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../services/quiz.service'; 
 import { Quiz } from '../quiz/quiz.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faSort, faSortUp, faSortDown  } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -24,13 +24,27 @@ sortIcon: any = this.faSort; // Initialize with faSort icon from Font Awesome
 sortColumn: string = ''; // Initialize with no sorting
 sortDirection: 'asc' | 'desc' = 'asc';  // Start with ascending direction
 
-  constructor(private quizService: QuizService, private router: Router) {} // Inject Router
+  constructor(private quizService: QuizService, private router: Router, private route: ActivatedRoute) {} // Inject Router
 
 
   ngOnInit() {
-    this.quizService.getQuizzes().subscribe(quizzes => {
-      this.quizzes = quizzes.map(quiz => ({ ...quiz, displayType: this.beautifyType(quiz.type) }));
-      this.filteredQuizzes = this.quizzes; // Initialize filteredQuizzes
+    // Extract the trainingContentId from the route parameters
+    this.route.queryParams.subscribe(params => {
+      const trainingContentId = params['trainingContentId'];
+      
+      if (trainingContentId) {
+        // Fetch quizzes by training content ID
+        this.quizService.getQuizzesByTrainingContentId(Number(trainingContentId)).subscribe(quizzes => {
+          this.quizzes = quizzes.map(quiz => ({ ...quiz, displayType: this.beautifyType(quiz.type) }));
+          this.filteredQuizzes = this.quizzes; // Initialize filteredQuizzes
+        });
+      } else {
+        // Fetch all quizzes
+        this.quizService.getQuizzes().subscribe(quizzes => {
+          this.quizzes = quizzes.map(quiz => ({ ...quiz, displayType: this.beautifyType(quiz.type) }));
+          this.filteredQuizzes = this.quizzes; // Initialize filteredQuizzes
+        });
+      }
     });
   }
 

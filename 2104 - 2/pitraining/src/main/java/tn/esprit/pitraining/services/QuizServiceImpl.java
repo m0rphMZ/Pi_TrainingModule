@@ -32,6 +32,16 @@ public class QuizServiceImpl implements QuizService {
         return quizRepository.findAll();
     }
 
+
+    @Override
+    public List<Quiz> getQuizzesByTrainingContentId(Long trainingContentId) {
+        // Retrieve TrainingContent from the service, handle the Optional
+        TrainingContent trainingContent = trainingContentService.findById(trainingContentId)
+                .orElseThrow(() -> new IllegalArgumentException("Training content not found for ID: " + trainingContentId));
+        // Now that you have a TrainingContent instance, pass it to findByTrainingContent
+        return quizRepository.findByTrainingContent(trainingContent);
+    }
+
     @Override
     public Optional<Quiz> getQuizById(Long id) {
         return quizRepository.findById(id);

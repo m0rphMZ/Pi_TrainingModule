@@ -32,6 +32,11 @@ public class QuizController {
         return quizService.getQuizById(id); // Delegate to service method
     }
 
+    @GetMapping("/ByTrainingContent/{trainingContentId}")
+    public List<Quiz> getQuizzesByTrainingContentId(@PathVariable Long trainingContentId) {
+        return quizService.getQuizzesByTrainingContentId(trainingContentId);
+    }
+
     // Save a new quiz
     @PostMapping
     public Quiz createQuiz(@RequestBody Quiz quiz) {

@@ -18,6 +18,10 @@ export class PassQuizComponent implements OnInit {
   showCorrectAnswerMessage = false;
   currentQuiz: Quiz | null = null;
 
+  totalQuestions: number = 0;
+  correctAnswers: number = 0;
+  score: number = 0;
+
   constructor(private route: ActivatedRoute, 
               private quizQuestionService: QuizQuestionService,
               private quizService: QuizService) { }
@@ -40,9 +44,11 @@ export class PassQuizComponent implements OnInit {
   loadQuizQuestions(quizId: number): void {
     this.quizQuestionService.getQuestionsByQuizId(quizId).subscribe((questions: QuizQuestion[]) => {
       this.quizQuestions = this.shuffleArray(questions);
+      this.totalQuestions = this.quizQuestions.length; // Set the total number of questions
       this.presentQuestion();
     });
   }
+  
 
   shuffleArray(array: any[]): any[] {
     // Implement array shuffling (e.g., Fisher-Yates algorithm)
@@ -56,6 +62,8 @@ export class PassQuizComponent implements OnInit {
       this.showCorrectAnswerMessage = false; // Reset the flag for showing correct answer message
     } else {
       console.log('End of quiz');
+      this.calculateScore();
+      console.log(this.calculateScore());
     }
   }
 
@@ -71,37 +79,35 @@ export class PassQuizComponent implements OnInit {
         // Move to the next question directly without checking the answer
         this.currentQuestionIndex++;
         this.presentQuestion();
+        this.correctAnswers++;
       } else if (this.currentQuiz && this.currentQuiz.type === 'TRUE_FALSE') {
         // Check if the selected answer matches the correct answer
         if ((this.selectedAnswer === 'A' && this.currentQuestion.correctAnswer === 'A') ||
             (this.selectedAnswer === 'B' && this.currentQuestion.correctAnswer === 'B')) {
-          // Move to the next question if the answer is correct
-          this.currentQuestionIndex++;
-          this.presentQuestion();
-        } else {
-          // Display a message indicating the correct answer
-          this.displayCorrectAnswerMessage();
+          // Increment correctAnswers if the answer is correct
+          this.correctAnswers++;
         }
+        // Always move to the next question
+        this.currentQuestionIndex++;
+        this.presentQuestion();
       } else if (this.currentQuiz && this.currentQuiz.type === 'FILL_IN_THE_BLANK') {
         // Check if the selected answer matches the correct answer
         if (this.selectedAnswer.toLowerCase() === this.currentQuestion.correctAnswer.toLowerCase()) {
-          // Move to the next question if the answer is correct
-          this.currentQuestionIndex++;
-          this.presentQuestion();
-        } else {
-          // Display a message indicating the correct answer
-          this.displayCorrectAnswerMessage();
+          // Increment correctAnswers if the answer is correct
+          this.correctAnswers++;
         }
+        // Always move to the next question
+        this.currentQuestionIndex++;
+        this.presentQuestion();
       } else if (this.currentQuiz && this.currentQuiz.type === 'MATCHING') {
         // Check if the selected answer matches the correct answer
         if (this.selectedAnswer === this.currentQuestion.correctAnswer) {
-          // Move to the next question if the answer is correct
-          this.currentQuestionIndex++;
-          this.presentQuestion();
-        } else {
-          // Display a message indicating the correct answer
-          this.displayCorrectAnswerMessage();
+          // Increment correctAnswers if the answer is correct
+          this.correctAnswers++;
         }
+        // Always move to the next question
+        this.currentQuestionIndex++;
+        this.presentQuestion();
       } else {
         // Map the selected answer to a letter (A, B, C, D)
         let selectedLetter: string | null = null;
@@ -124,16 +130,21 @@ export class PassQuizComponent implements OnInit {
   
         // Check if the selected letter matches the correct answer letter
         if (selectedLetter === this.currentQuestion.correctAnswer) {
-          // Move to the next question if the answer is correct
-          this.currentQuestionIndex++;
-          this.presentQuestion();
-        } else {
-          // Display a message indicating the correct answer
-          this.displayCorrectAnswerMessage();
+          // Increment correctAnswers if the answer is correct
+          this.correctAnswers++;
         }
+        // Always move to the next question
+        this.currentQuestionIndex++;
+        this.presentQuestion();
       }
     }
   }
+  
+
+  calculateScore(): string {
+    return `${this.correctAnswers}/${this.totalQuestions} correct`;
+  }
+  
   
   
   
