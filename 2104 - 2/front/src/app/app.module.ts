@@ -57,6 +57,7 @@ import { AddQuizComponent } from './views/add-quiz/add-quiz.component';
 import { TrainingContentListComponent } from './views/training-content-list/training-content-list.component';
 import { AvailableQuizzesComponent } from './views/front/quizzes/available-quizzes/available-quizzes.component';
 import { PassQuizComponent } from './views/front/quizzes/pass-quiz/pass-quiz.component';
+import { AddTrainingContentComponent } from './views/add-training-content/add-training-content.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { PassQuizComponent } from './views/front/quizzes/pass-quiz/pass-quiz.com
     TrainingContentListComponent,
     AvailableQuizzesComponent,
     PassQuizComponent,
+    AddTrainingContentComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, ReactiveFormsModule],
   providers: [],

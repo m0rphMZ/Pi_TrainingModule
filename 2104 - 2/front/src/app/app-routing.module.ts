@@ -27,6 +27,8 @@ import { AddQuizComponent } from "./views/add-quiz/add-quiz.component";
 import { TrainingContentListComponent } from './views/training-content-list/training-content-list.component';
 import { AvailableQuizzesComponent } from './views/front/quizzes/available-quizzes/available-quizzes.component';
 import { PassQuizComponent } from './views/front/quizzes/pass-quiz/pass-quiz.component';
+import { AddTrainingContentComponent } from './views/add-training-content/add-training-content.component';
+
 
 
 const routes: Routes = [
@@ -62,6 +64,7 @@ const routes: Routes = [
   { path: 'quizzes/:id', component: QuizDetailComponent },
   { path: 'addquiz', component: AddQuizComponent },
   { path: 'training-content', component: TrainingContentListComponent },
+  { path: 'addtrainingcontent', component: AddTrainingContentComponent },
   { path: 'available-quizzes', component: AvailableQuizzesComponent },
   { path: 'available-quizzes/:id', component: PassQuizComponent },
   { path: "**", redirectTo: "", pathMatch: "full" },
