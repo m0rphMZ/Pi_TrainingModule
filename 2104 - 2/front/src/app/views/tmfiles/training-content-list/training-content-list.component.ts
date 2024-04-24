@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TrainingContentService } from '../../services/training-content.service';
+import { TrainingContentService } from '../services/training-content.service';
 import { TrainingContent } from '../quiz/training-content.model';
 import { Router } from '@angular/router';
 

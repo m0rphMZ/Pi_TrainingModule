@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Quiz } from '../views/quiz/quiz.model'; // Assuming your Quiz model location
+import { Quiz } from '../quiz/quiz.model'; // Assuming your Quiz model location
 
 @Injectable({ providedIn: 'root' })
 export class QuizService {
@@ -21,7 +21,6 @@ export class QuizService {
     return this.http.put<Quiz>(`${this.backendUrl}/quizzes/${quizId}`, updatedQuiz);
   }
   
-
   deleteQuiz(quizId: number): Observable<void> {
     return this.http.delete<void>(`${this.backendUrl}/quizzes/${quizId}`);
   }  
@@ -30,9 +29,21 @@ export class QuizService {
     return this.http.post<Quiz>(`${this.backendUrl}/quizzes`, newQuiz);
   } 
 
+  getQuizzesByTrainingContentId(trainingContentId: number): Observable<Quiz[]> {
+    return this.http.get<Quiz[]>(`${this.backendUrl}/quizzes/ByTrainingContent/${trainingContentId}`);
+  }
 
-    getQuizzesByTrainingContentId(trainingContentId: number): Observable<Quiz[]> {
-      return this.http.get<Quiz[]>(`${this.backendUrl}/quizzes/ByTrainingContent/${trainingContentId}`);
-    }
+  // Add the missing methods for statistics
+  getMostPopularQuizType(): Observable<string> {
+    return this.http.get(`${this.backendUrl}/quizzes/statistics/mostPopularQuizType`, { responseType: 'text' });
+  }
   
+
+  getTotalQuizzesCount(): Observable<number> {
+    return this.http.get<number>(`${this.backendUrl}/quizzes/statistics/totalQuizzesCount`);
+  }
+
+  getAverageQuizScore(): Observable<number> {
+    return this.http.get<number>(`${this.backendUrl}/quizzes/statistics/averageQuizScore`);
+  }
 }

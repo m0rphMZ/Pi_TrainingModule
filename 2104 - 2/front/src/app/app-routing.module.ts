@@ -21,57 +21,57 @@ import { LandingComponent } from "./views/landing/landing.component";
 import { ProfileComponent } from "./views/profile/profile.component";
 
 // Quiz Components
-import { QuizzesComponent } from "./views/quizzes/quizzes.component"; 
-import { QuizDetailComponent } from "./views/quiz-detail/quiz-detail.component"; 
-import { AddQuizComponent } from "./views/add-quiz/add-quiz.component";
-import { TrainingContentListComponent } from './views/training-content-list/training-content-list.component';
-import { AvailableQuizzesComponent } from './views/front/quizzes/available-quizzes/available-quizzes.component';
-import { PassQuizComponent } from './views/front/quizzes/pass-quiz/pass-quiz.component';
-import { AddTrainingContentComponent } from './views/add-training-content/add-training-content.component';
-
-
+import { QuizzesComponent } from "./views/tmfiles/quizzes/quizzes.component"; 
+import { QuizDetailComponent } from "./views/tmfiles/quiz-detail/quiz-detail.component"; 
+import { AddQuizComponent } from "./views/tmfiles/add-quiz/add-quiz.component";
+import { TrainingContentListComponent } from './views/tmfiles/training-content-list/training-content-list.component';
+import { AvailableQuizzesComponent } from './views/tmfiles/available-quizzes/available-quizzes.component';
+import { PassQuizComponent } from './views/tmfiles/pass-quiz/pass-quiz.component';
+import { AddTrainingContentComponent } from './views/tmfiles/add-training-content/add-training-content.component';
+import { QuizStatisticsComponent } from './views/tmfiles/quiz-statistics/quiz-statistics.component';
 
 const routes: Routes = [
-  // admin views
-  {
-    path: "admin",
-    component: AdminComponent,
-    children: [
-      { path: "dashboard", component: DashboardComponent },
-      { path: "settings", component: SettingsComponent },
-      { path: "tables", component: TablesComponent },
-      { path: "maps", component: MapsComponent },
-      { path: "", redirectTo: "dashboard", pathMatch: "full" },
-    ],
-  },
-  // auth views
-  {
-    path: "auth",
-    component: AuthComponent,
-    children: [
-      { path: "login", component: LoginComponent },
-      { path: "register", component: RegisterComponent },
-      { path: "", redirectTo: "login", pathMatch: "full" },
-    ],
-  },
-  // no layout views
-  { path: "profile", component: ProfileComponent },
-  { path: "landing", component: LandingComponent },
-  { path: "", component: IndexComponent },
+  // admin views
+  {
+    path: "admin",
+    component: AdminComponent,
+    children: [
+      { path: "dashboard", component: DashboardComponent },
+      { path: "settings", component: SettingsComponent },
+      { path: "tables", component: TablesComponent },
+      { path: "maps", component: MapsComponent },
+      { path: "", redirectTo: "dashboard", pathMatch: "full" },
+    ],
+  },
+  // auth views
+  {
+    path: "auth",
+    component: AuthComponent,
+    children: [
+      { path: "login", component: LoginComponent },
+      { path: "register", component: RegisterComponent },
+      { path: "", redirectTo: "login", pathMatch: "full" },
+    ],
+  },
+  // no layout views
+  { path: "profile", component: ProfileComponent },
+  { path: "landing", component: LandingComponent },
+  { path: "", component: IndexComponent },
 
   // Quiz Routes
   { path: 'quizzes', component: QuizzesComponent },
+  { path: 'quizzes/statistics', component: QuizStatisticsComponent },
   { path: 'quizzes/:id', component: QuizDetailComponent },
   { path: 'addquiz', component: AddQuizComponent },
   { path: 'training-content', component: TrainingContentListComponent },
   { path: 'addtrainingcontent', component: AddTrainingContentComponent },
   { path: 'available-quizzes', component: AvailableQuizzesComponent },
   { path: 'available-quizzes/:id', component: PassQuizComponent },
-  { path: "**", redirectTo: "", pathMatch: "full" },
+  { path: "**", redirectTo: "", pathMatch: "full" },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

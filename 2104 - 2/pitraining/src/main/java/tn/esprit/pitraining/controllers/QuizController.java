@@ -49,6 +49,28 @@ public class QuizController {
         return quizService.updateQuiz(id, updatedQuiz); // Delegate to service method
     }
 
+
+    // Endpoint to get the most popular quiz type
+    @GetMapping("/statistics/mostPopularQuizType")
+    public String getMostPopularQuizType() {
+        return quizService.getMostPopularQuizType();
+    }
+
+    // Endpoint to get the total number of quizzes
+    @GetMapping("/statistics/totalQuizzesCount")
+    public long getTotalQuizzesCount() {
+        return quizService.getTotalQuizzesCount();
+    }
+
+    // Endpoint to get the average quiz score
+    @GetMapping("/statistics/averageQuizScore")
+    public double getAverageQuizScore() {
+        return quizService.getAverageQuizScore();
+    }
+
+
+
+
     // Delete a quiz by ID
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT) // Indicate successful deletion without content

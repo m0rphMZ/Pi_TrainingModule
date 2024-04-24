@@ -1,6 +1,7 @@
 package tn.esprit.pitraining.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -113,5 +114,21 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public void deleteQuiz(Long id) {
         quizRepository.deleteById(id);
+    }
+
+    @Override
+    public String getMostPopularQuizType() {
+        return quizRepository.findMostPopularQuizType();
+    }
+
+
+    @Override
+    public long getTotalQuizzesCount() {
+        return quizRepository.getTotalQuizzesCount();
+    }
+
+    @Override
+    public double getAverageQuizScore() {
+        return quizRepository.getAverageQuizScore();
     }
 }

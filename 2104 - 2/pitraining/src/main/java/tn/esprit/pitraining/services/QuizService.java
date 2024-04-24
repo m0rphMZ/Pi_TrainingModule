@@ -18,4 +18,11 @@ public interface QuizService {
     Quiz updateQuiz(Long id, Quiz updatedQuiz);
 
     void deleteQuiz(Long id);
+
+    // New statistics-related methods
+    String getMostPopularQuizType();
+
+    long getTotalQuizzesCount();
+
+    double getAverageQuizScore();
 }

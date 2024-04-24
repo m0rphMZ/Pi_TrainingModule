@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { QuizService } from '../../services/quiz.service'; 
+import { QuizService } from '../services/quiz.service'; 
 import { Quiz } from '../quiz/quiz.model';
 import { QuizQuestion } from '../quiz/quiz-question.model';
 import { Router } from '@angular/router'; 
-import { TrainingContentService } from '../../services/training-content.service';
+import { TrainingContentService } from '../services/training-content.service';
 import { TrainingContent } from '../quiz/training-content.model';
 
 @Component({

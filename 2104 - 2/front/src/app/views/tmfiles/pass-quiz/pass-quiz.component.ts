@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { QuizQuestionService } from '../../../../services/quiz-question.service'; // Import your QuizQuestionService
-import { QuizQuestion } from '../../../quiz/quiz-question.model'; // Import your QuizQuestion model
-import { Quiz } from '../../../quiz/quiz.model'; // Import your Quiz model
-import { QuizService } from '../../../../services/quiz.service'; // Import your QuizService
+import { QuizQuestionService } from '../services/quiz-question.service'; // Import your QuizQuestionService
+import { QuizQuestion } from '../quiz/quiz-question.model'; // Import your QuizQuestion model
+import { Quiz } from '../quiz/quiz.model'; // Import your Quiz model
+import { QuizService } from '../services/quiz.service'; // Import your QuizService
 
 @Component({
   selector: 'app-pass-quiz',

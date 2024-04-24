@@ -51,13 +51,14 @@ import { PagesDropdownComponent } from "./components/dropdowns/pages-dropdown/pa
 import { NotificationDropdownComponent } from "./components/dropdowns/notification-dropdown/notification-dropdown.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { UserDropdownComponent } from "./components/dropdowns/user-dropdown/user-dropdown.component";
-import { QuizzesComponent } from './views/quizzes/quizzes.component';
-import { QuizDetailComponent } from './views/quiz-detail/quiz-detail.component';
-import { AddQuizComponent } from './views/add-quiz/add-quiz.component';
-import { TrainingContentListComponent } from './views/training-content-list/training-content-list.component';
-import { AvailableQuizzesComponent } from './views/front/quizzes/available-quizzes/available-quizzes.component';
-import { PassQuizComponent } from './views/front/quizzes/pass-quiz/pass-quiz.component';
-import { AddTrainingContentComponent } from './views/add-training-content/add-training-content.component';
+import { QuizzesComponent } from "./views/tmfiles/quizzes/quizzes.component"; 
+import { QuizDetailComponent } from "./views/tmfiles/quiz-detail/quiz-detail.component"; 
+import { AddQuizComponent } from "./views/tmfiles/add-quiz/add-quiz.component";
+import { TrainingContentListComponent } from './views/tmfiles/training-content-list/training-content-list.component';
+import { AvailableQuizzesComponent } from './views/tmfiles/available-quizzes/available-quizzes.component';
+import { PassQuizComponent } from './views/tmfiles/pass-quiz/pass-quiz.component';
+import { AddTrainingContentComponent } from './views/tmfiles/add-training-content/add-training-content.component';
+import { QuizStatisticsComponent } from './views/tmfiles/quiz-statistics/quiz-statistics.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { AddTrainingContentComponent } from './views/add-training-content/add-tr
     AvailableQuizzesComponent,
     PassQuizComponent,
     AddTrainingContentComponent,
+    QuizStatisticsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, ReactiveFormsModule],
   providers: [],
